@@ -49,14 +49,30 @@ def update_app():
                 # Copy directory
                 log_message(f'Copying directory: {source_file}')
                 if os.path.exists(destination_file):
-                    shutil.rmtree(destination_file)  # Delete the destination directory if it already exists
-                shutil.copytree(source_file, destination_file)
+                    # If the destination directory already exists, copy only missing or updated files
+                    for root, dirs, files in os.walk(source_file):
+                        rel_root = os.path.relpath(root, source_folder)
+                        dest_root = os.path.join(destination_folder, rel_root)
+                        
+                        if not os.path.exists(dest_root):
+                            os.makedirs(dest_root)
+                        
+                        for file in files:
+                            src_file = os.path.join(root, file)
+                            dest_file = os.path.join(dest_root, file)
+                            
+                            if not os.path.exists(dest_file) or os.path.getmtime(src_file) > os.path.getmtime(dest_file):
+                                shutil.copy2(src_file, dest_file)
+                else:
+                    shutil.copytree(source_file, destination_file)
             else:
                 # Copy file
                 log_message(f'Copying file: {source_file}')
                 if os.path.exists(destination_file):
-                    os.remove(destination_file)  # Delete the destination file if it already exists
-                shutil.copy(source_file, destination_file)
+                    if os.path.getmtime(source_file) > os.path.getmtime(destination_file):
+                        shutil.copy2(source_file, destination_file)
+                else:
+                    shutil.copy(source_file, destination_file)
             
         log_message('The DLCs have been installed successfully!')
     else:
