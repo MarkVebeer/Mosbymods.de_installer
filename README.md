@@ -3,5 +3,5 @@
 
 pyinstaller command:
 ```sh
-pyinstaller app.py --onefile --noconsole --icon=icon.ico --uac-admin --add-data "browseicon.png;." --add-data "dlcs;dlcs" --add-data "icon.ico;."
+pyinstaller app.py --onefile --noconsole --icon=icon.ico --uac-admin --add-data "browseicon.png;." --add-data "icon.ico;."
 ```
