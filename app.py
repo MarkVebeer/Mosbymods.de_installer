@@ -21,7 +21,7 @@ def check_base_scs(folder_path):
         return False
     
 def check_dlc_scs(folder_path):
-    base_scs_path = os.path.join(folder_path, "dlc_iberia.scs")
+    base_scs_path = os.path.join(folder_path, "bin/win_x64/cream_api.ini")
     
     if os.path.exists(base_scs_path):
         return True
@@ -87,11 +87,11 @@ def update_app():
             log_message('Please select the right game folder containing the game with the base.scs file!')
             return
     else:
-        log_message('Please select the right dlc source folder containing the dlcs with the dlc_iberia.scs file!')
+        log_message('Please select the right dlc source folder containing the dlcs!')
         return
 
 root = tk.Tk()
-root.title('Mosbymods.de - ETS2 DLC Updater to v1.48.1.6')
+root.title('Mosbymods.de - Universal Installer for dlcs')
 root.geometry('450x320')  # Adjusted window size to accommodate the new option
 # Set window icon
 icon_path = os.path.join(script_dir, 'icon.ico')
